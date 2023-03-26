@@ -10,16 +10,19 @@ import {
 
 type Props = {
 	style?: ViewStyle;
+	onPress: () => void;
+	title: string;
 };
-function StartButton({ style }: Props) {
+
+function StartButton({ style, onPress, title }: Props) {
 	return (
 		<View style={style}>
 			<TouchableHighlight
 				style={styles.starButton}
 				underlayColor={"grey"}
-				onPress={() => console.log("pressed")}
+				onPress={onPress}
 			>
-				<Text style={styles.startText}>Start</Text>
+				<Text style={styles.startText}>{title}</Text>
 			</TouchableHighlight>
 		</View>
 	);

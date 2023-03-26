@@ -5,12 +5,12 @@ import { useGrid } from "../hooks/useGrid";
 import Row from "./Row";
 
 type Props = {
-	cells: number;
 	size: number;
+	grid: boolean[][];
+	onCellPress: (rowIndex: number, cellIndex: number) => void;
 };
 
-function Grid({ cells, size }: Props) {
-	const { grid, toggleCell } = useGrid(cells);
+function Grid({ size, grid, onCellPress }: Props) {
 	return (
 		<View
 			style={[
@@ -26,7 +26,7 @@ function Grid({ cells, size }: Props) {
 					key={index}
 					cells={row}
 					onCellPress={(cellIndex) => {
-						toggleCell(index, cellIndex);
+						onCellPress(index, cellIndex);
 					}}
 				/>
 			))}

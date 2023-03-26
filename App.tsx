@@ -1,25 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
-import {
-	Dimensions,
-	StyleSheet,
-	Text,
-	TouchableHighlight,
-	View,
-} from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import StartButton from "./src/modules/common/StartButton";
-import Cell from "./src/modules/Grid/components/Cell";
 import Grid from "./src/modules/Grid/components/Grid";
+import { useGrid } from "./src/modules/Grid/hooks/useGrid";
+import updateGrid from "./src/modules/Grid/api/updateGrid";
+import { useState, useEffect } from "react";
 
 export default function App() {
-	const row = new Array(10).fill(false);
-	const grid = new Array(10).fill(row);
+	const { grid, toggleCell, setGrid } = useGrid(10);
+	const [playing, setPlaying] = useState(false);
+	const [gameInterval, setGameInterval] = useState<NodeJS.Timer | null>(null);
+
+	const update = () => {
+		const newGrid = updateGrid(grid);
+		setGrid(newGrid);
+	};
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if (playing) {
+				setGrid(updateGrid);
+			}
+		}, 1000);
+		return () => clearInterval(interval);
+	}, [playing]);
+
 	return (
 		<View style={styles.container}>
 			<StatusBar style="auto" />
-			<View style={styles.grid}>
-				<Grid cells={15} size={Dimensions.get("window").width} />
-			</View>
-			<StartButton style={styles.startButton} />
+			<Grid
+				size={Dimensions.get("window").width}
+				grid={grid}
+				onCellPress={toggleCell}
+			/>
+			<StartButton
+				style={styles.startButton}
+				onPress={() => {
+					update();
+					setPlaying((playing) => !playing);
+				}}
+				title={playing ? "Stop" : "Start"}
+			/>
 		</View>
 	);
 }
@@ -28,11 +49,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	grid: {
-		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
 	},
