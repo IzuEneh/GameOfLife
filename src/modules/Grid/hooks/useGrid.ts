@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
+import Constants from "expo-constants";
 
 function create2DArrayOfSizeN<T>(
 	numRows: number,
@@ -13,10 +14,14 @@ function create2DArrayOfSizeN<T>(
 	return arr;
 }
 
-const useGrid = (size: number) => {
-	const width = Math.round(Dimensions.get("window").width / size);
-	const numRows = Math.floor(Dimensions.get("window").height / width);
-	const [grid, setGrid] = useState(create2DArrayOfSizeN(numRows, size, false));
+function calculateRows(height: number, width: number, numCols: number): number {
+	const colWidth = Math.round(width / numCols);
+	return Math.floor(height / colWidth);
+}
+
+const useGrid = (height: number, width: number, cols: number) => {
+	const numRows = calculateRows(height, width, cols);
+	const [grid, setGrid] = useState(create2DArrayOfSizeN(numRows, cols, false));
 
 	const toggleCell = (i: number, j: number) => {
 		const newGrid = grid.map((row, index) => {

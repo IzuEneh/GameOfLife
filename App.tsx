@@ -1,13 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, StyleSheet, View } from "react-native";
+import {
+	Dimensions,
+	StyleSheet,
+	View,
+	SafeAreaView,
+	Platform,
+} from "react-native";
+import { useState, useEffect } from "react";
+import Constants from "expo-constants";
+
 import StartButton from "./src/modules/common/StartButton";
 import Grid from "./src/modules/Grid/components/Grid";
 import { useGrid } from "./src/modules/Grid/hooks/useGrid";
 import updateGrid from "./src/modules/Grid/api/updateGrid";
-import { useState, useEffect } from "react";
 
 export default function App() {
-	const { grid, toggleCell, setGrid } = useGrid(15);
+	const height = Dimensions.get("window").height - Constants.statusBarHeight;
+	const width = Dimensions.get("window").width;
+	const { grid, toggleCell, setGrid } = useGrid(height, width, 15);
 	const [playing, setPlaying] = useState(false);
 
 	const update = () => {
@@ -28,7 +38,7 @@ export default function App() {
 		<View style={styles.container}>
 			<StatusBar style="auto" />
 			<Grid
-				height={Dimensions.get("window").height}
+				height={Dimensions.get("window").height - Constants.statusBarHeight}
 				width={Dimensions.get("window").width}
 				grid={grid}
 				onCellPress={(row, col) => {
@@ -56,6 +66,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
+		paddingTop: Constants.statusBarHeight,
 	},
 	startButton: {
 		position: "absolute",
