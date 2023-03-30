@@ -7,9 +7,8 @@ import updateGrid from "./src/modules/Grid/api/updateGrid";
 import { useState, useEffect } from "react";
 
 export default function App() {
-	const { grid, toggleCell, setGrid } = useGrid(10);
+	const { grid, toggleCell, setGrid } = useGrid(15);
 	const [playing, setPlaying] = useState(false);
-	const [gameInterval, setGameInterval] = useState<NodeJS.Timer | null>(null);
 
 	const update = () => {
 		const newGrid = updateGrid(grid);
@@ -29,9 +28,15 @@ export default function App() {
 		<View style={styles.container}>
 			<StatusBar style="auto" />
 			<Grid
-				size={Dimensions.get("window").width}
+				height={Dimensions.get("window").height}
+				width={Dimensions.get("window").width}
 				grid={grid}
-				onCellPress={toggleCell}
+				onCellPress={(row, col) => {
+					if (playing) {
+						return;
+					}
+					toggleCell(row, col);
+				}}
 			/>
 			<StartButton
 				style={styles.startButton}

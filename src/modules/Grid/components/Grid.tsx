@@ -1,26 +1,18 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { useGrid } from "../hooks/useGrid";
 
 import Row from "./Row";
 
 type Props = {
-	size: number;
+	width: number;
+	height: number;
 	grid: boolean[][];
 	onCellPress: (rowIndex: number, cellIndex: number) => void;
 };
 
-function Grid({ size, grid, onCellPress }: Props) {
+function Grid({ width, height, grid, onCellPress }: Props) {
 	return (
-		<View
-			style={[
-				styles.container,
-				{
-					height: size,
-					width: size,
-				},
-			]}
-		>
+		<View style={[styles.container, { height, width }]}>
 			{grid.map((row, index) => (
 				<Row
 					key={index}
