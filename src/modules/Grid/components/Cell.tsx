@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { View, Pressable } from "react-native";
-import { useGrid } from "../hooks/useGrid";
+import React from "react";
+import { Pressable } from "react-native";
+import { useTheme } from "../../common/hooks/useTheme";
 
 type Props = {
 	alive: boolean;
@@ -8,13 +8,14 @@ type Props = {
 };
 
 function Cell({ alive, onPress }: Props) {
+	const theme = useTheme();
 	return (
 		<Pressable
 			style={{
 				flex: 1,
-				backgroundColor: alive ? "black" : "white",
+				backgroundColor: alive ? theme.primary : theme.secondary,
 				borderWidth: 1,
-				borderColor: "black",
+				borderColor: theme.primary,
 			}}
 			onPress={onPress}
 		/>
