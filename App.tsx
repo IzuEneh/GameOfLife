@@ -13,11 +13,12 @@ import StartButton from "./src/modules/common/StartButton";
 import Grid from "./src/modules/Grid/components/Grid";
 import { useGrid } from "./src/modules/Grid/hooks/useGrid";
 import updateGrid from "./src/modules/Grid/api/updateGrid";
+import ResetButton from "./src/modules/common/ResetButton";
 
 export default function App() {
 	const height = Dimensions.get("window").height - Constants.statusBarHeight;
 	const width = Dimensions.get("window").width;
-	const { grid, toggleCell, setGrid } = useGrid(height, width, 15);
+	const { grid, toggleCell, setGrid, resetGrid } = useGrid(height, width, 15);
 	const [playing, setPlaying] = useState(false);
 
 	const update = () => {
@@ -30,7 +31,7 @@ export default function App() {
 			if (playing) {
 				setGrid(updateGrid);
 			}
-		}, 1000);
+		}, 500);
 		return () => clearInterval(interval);
 	}, [playing]);
 
@@ -48,14 +49,25 @@ export default function App() {
 					toggleCell(row, col);
 				}}
 			/>
-			<StartButton
-				style={styles.startButton}
-				onPress={() => {
-					update();
-					setPlaying((playing) => !playing);
-				}}
-				title={playing ? "Stop" : "Start"}
-			/>
+			<View style={styles.buttons}>
+				<StartButton
+					style={styles.startButton}
+					onPress={() => {
+						update();
+						setPlaying((playing) => !playing);
+					}}
+					title={playing ? "Stop" : "Start"}
+				/>
+				<ResetButton
+					onPress={() => {
+						if (playing) {
+							setPlaying(false);
+						}
+
+						resetGrid();
+					}}
+				/>
+			</View>
 		</View>
 	);
 }
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		paddingTop: Constants.statusBarHeight,
 	},
-	startButton: {
+	buttons: {
 		position: "absolute",
 		bottom: 0,
 		left: 0,
@@ -76,5 +88,8 @@ const styles = StyleSheet.create({
 		paddingBottom: 64,
 		justifyContent: "center",
 		alignItems: "center",
+		flexDirection: "row",
+		gap: 10,
 	},
+	startButton: {},
 });

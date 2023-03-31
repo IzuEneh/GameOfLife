@@ -30,15 +30,18 @@ function StartButton({ style, onPress, title }: Props) {
 
 const styles = StyleSheet.create({
 	starButton: {
-		backgroundColor: "black",
-		borderRadius: 20,
+		backgroundColor: "white",
+		borderRadius: 25,
 		width: 200,
 		alignItems: "center",
 		paddingVertical: 8,
+		borderColor: "black",
+		borderWidth: 2,
 	},
 	startText: {
-		color: "white",
+		color: "black",
 		fontSize: 24,
+		fontWeight: "600",
 	},
 });
 

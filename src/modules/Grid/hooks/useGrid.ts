@@ -21,7 +21,8 @@ function calculateRows(height: number, width: number, numCols: number): number {
 
 const useGrid = (height: number, width: number, cols: number) => {
 	const numRows = calculateRows(height, width, cols);
-	const [grid, setGrid] = useState(create2DArrayOfSizeN(numRows, cols, false));
+	const initGrid = create2DArrayOfSizeN(numRows, cols, false);
+	const [grid, setGrid] = useState(initGrid);
 
 	const toggleCell = (i: number, j: number) => {
 		const newGrid = grid.map((row, index) => {
@@ -42,10 +43,13 @@ const useGrid = (height: number, width: number, cols: number) => {
 		setGrid(newGrid);
 	};
 
+	const resetGrid = () => setGrid(initGrid);
+
 	return {
 		grid,
 		setGrid,
 		toggleCell,
+		resetGrid,
 	};
 };
 
