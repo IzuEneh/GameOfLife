@@ -30,13 +30,8 @@ const useGrid = (height: number, width: number, cols: number) => {
 				return row;
 			}
 
-			const newRow = row.map((cell, index) => {
-				if (index != j) {
-					return cell;
-				}
-
-				return !cell;
-			});
+			const newRow = row.slice();
+			newRow[j] = !newRow[j];
 
 			return newRow;
 		});
