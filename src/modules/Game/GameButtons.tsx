@@ -1,11 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import { Dimensions, StyleSheet, View, ViewStyle } from "react-native";
-import { useState, useEffect } from "react";
-import Constants from "expo-constants";
 
 import StartButton from "../common/StartButton";
 import ResetButton from "../common/ResetButton";
 import PauseButton from "../common/PauseButton";
+import DarkModeButton from "../common/components/DarkModeButton";
 
 type Props = {
 	style?: ViewStyle;
@@ -26,6 +24,7 @@ function GameButtons({ style, isPlaying, onStart, onPause, onReset }: Props) {
 
 	return (
 		<View style={[styles.playingButtons, style]}>
+			<DarkModeButton />
 			<StartButton onPress={onStart} title={"Start"} />
 			<ResetButton onPress={onReset} />
 		</View>

@@ -7,6 +7,7 @@ import Grid from "./src/modules/Grid/components/Grid";
 import { useGrid } from "./src/modules/Grid/hooks/useGrid";
 import updateGrid from "./src/modules/Grid/api/updateGrid";
 import GameButtons from "./src/modules/Game/GameButtons";
+import { ThemeProvider } from "./src/modules/common/ThemeContext";
 
 export default function App() {
 	const height = Dimensions.get("window").height - Constants.statusBarHeight;
@@ -48,22 +49,24 @@ export default function App() {
 	};
 
 	return (
-		<View style={styles.container}>
-			<StatusBar style="auto" />
-			<Grid
-				height={Dimensions.get("window").height - Constants.statusBarHeight}
-				width={Dimensions.get("window").width}
-				grid={grid}
-				onCellPress={handleCellPress}
-			/>
-			<GameButtons
-				style={styles.buttons}
-				isPlaying={playing}
-				onStart={handleStart}
-				onReset={handleReset}
-				onPause={handlePause}
-			/>
-		</View>
+		<ThemeProvider>
+			<View style={styles.container}>
+				<StatusBar style="auto" />
+				<Grid
+					height={Dimensions.get("window").height - Constants.statusBarHeight}
+					width={Dimensions.get("window").width}
+					grid={grid}
+					onCellPress={handleCellPress}
+				/>
+				<GameButtons
+					style={styles.buttons}
+					isPlaying={playing}
+					onStart={handleStart}
+					onReset={handleReset}
+					onPause={handlePause}
+				/>
+			</View>
+		</ThemeProvider>
 	);
 }
 

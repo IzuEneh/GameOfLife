@@ -1,11 +1,11 @@
 import { View, Pressable, useColorScheme } from "react-native";
+import { useThemeContext } from "../ThemeContext";
 
 const useTheme = () => {
-	const theme = useColorScheme();
-	const isDarkMode = theme === "dark";
+	const { isDark } = useThemeContext();
 	return {
-		primary: isDarkMode ? "black" : "white",
-		secondary: isDarkMode ? "white" : "black",
+		primary: isDark ? "white" : "black",
+		secondary: isDark ? "black" : "white",
 	};
 };
 
