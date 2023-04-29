@@ -9,12 +9,14 @@ import updateGrid from "./src/modules/Grid/api/updateGrid";
 import GameButtons from "./src/modules/Game/GameButtons";
 import ARButton from "./src/modules/common/ARButton";
 import { ThemeProvider } from "./src/modules/common/ThemeContext";
+import ARScene from "./src/modules/AR/ARScene";
 
 export default function App() {
 	const height = Dimensions.get("window").height - Constants.statusBarHeight;
 	const width = Dimensions.get("window").width;
 	const { grid, toggleCell, setGrid, resetGrid } = useGrid(height, width, 15);
 	const [playing, setPlaying] = useState(false);
+	const [showAR, setShowAR] = useState(false);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -51,18 +53,26 @@ export default function App() {
 
 	const handleAR = () => {
 		console.log("AR");
+		setShowAR(!showAR);
 	};
 
 	return (
 		<ThemeProvider>
 			<View style={styles.container}>
-				<StatusBar style="auto" />
-				<Grid
-					height={Dimensions.get("window").height - Constants.statusBarHeight}
-					width={Dimensions.get("window").width}
-					grid={grid}
-					onCellPress={handleCellPress}
-				/>
+				<StatusBar style='auto' />
+				{showAR ? (
+					<View /> // Change this line to ARScene
+				) : (
+					<Grid
+						height={
+							Dimensions.get("window").height -
+							Constants.statusBarHeight
+						}
+						width={Dimensions.get("window").width}
+						grid={grid}
+						onCellPress={handleCellPress}
+					/>
+				)}
 				<ARButton onPress={handleAR} />
 				<GameButtons
 					style={styles.buttons}
