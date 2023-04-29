@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { useState, useEffect } from "react";
 import Constants from "expo-constants";
@@ -7,6 +7,7 @@ import Grid from "./src/modules/Grid/components/Grid";
 import { useGrid } from "./src/modules/Grid/hooks/useGrid";
 import updateGrid from "./src/modules/Grid/api/updateGrid";
 import GameButtons from "./src/modules/Game/GameButtons";
+import ARButton from "./src/modules/common/ARButton";
 import { ThemeProvider } from "./src/modules/common/ThemeContext";
 
 export default function App() {
@@ -48,6 +49,10 @@ export default function App() {
 		setPlaying(false);
 	};
 
+	const handleAR = () => {
+		console.log("AR");
+	};
+
 	return (
 		<ThemeProvider>
 			<View style={styles.container}>
@@ -58,6 +63,7 @@ export default function App() {
 					grid={grid}
 					onCellPress={handleCellPress}
 				/>
+				<ARButton onPress={handleAR} />
 				<GameButtons
 					style={styles.buttons}
 					isPlaying={playing}
