@@ -25,6 +25,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["@viro-community/react-viro", {
+        "androidXrMode": ["GVR", "AR", "OVR_MOBILE"]
+      }]
   }
 }
