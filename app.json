@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ieneh.gameOfLife"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,8 +27,17 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [["@viro-community/react-viro", {
-        "androidXrMode": ["GVR", "AR", "OVR_MOBILE"]
-      }]]
+    "plugins": [
+      [
+        "@viro-community/react-viro",
+        {
+          "androidXrMode": [
+            "GVR",
+            "AR",
+            "OVR_MOBILE"
+          ]
+        }
+      ]
+    ]
   }
 }
